@@ -18,9 +18,18 @@ SECRET_KEY = 'django-insecure-=gfa)&sgx8l&6lt7fi8lr2^g7eu6dl#)=19nug6+7tv2s-77m1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 if os.environ.get('CODESPACE_NAME'):
     ALLOWED_HOSTS.append(f"{os.environ.get('CODESPACE_NAME')}-8000.app.github.dev")
+
+# Trust forwarded host/proto headers from the GitHub Codespaces proxy
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Required for CSRF to pass over HTTPS (avoids certificate / cross-origin issues)
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
+if os.environ.get('CODESPACE_NAME'):
+    CSRF_TRUSTED_ORIGINS.append(f"https://{os.environ.get('CODESPACE_NAME')}-8000.app.github.dev")
 
 
 # Application definition
