@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { RandomImage } from '../App';
+
+const HOUSE_CLASSES = ['team-gryffindor', 'team-slytherin', 'team-ravenclaw', 'team-hufflepuff'];
+const HOUSE_LABELS  = ['🦁 Gryffindor', '🐍 Slytherin', '🦅 Ravenclaw', '🦡 Hufflepuff'];
 
 function Teams() {
   const [teams, setTeams] = useState([]);
@@ -44,8 +48,9 @@ function Teams() {
   );
 
   return (
-    <div className="octo-page">
-      <div className="container">
+    <div className="octo-page" style={{ position: 'relative', overflow: 'hidden' }}>
+      <RandomImage />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="octo-page-header">
           <div className="octo-page-icon">🏆</div>
           <div>
@@ -61,21 +66,27 @@ function Teams() {
           </div>
         ) : (
           <div className="octo-data-grid">
-            {teams.map((team, i) => (
-              <div className="octo-data-card" key={team._id || i}>
+            {teams.map((team, i) => {
+              const houseClass = HOUSE_CLASSES[i % 4];
+              const houseLabel = HOUSE_LABELS[i % 4];
+              return (
+              <div className={`octo-data-card ${houseClass}`} key={team._id || i}>
+                <p className="octo-data-card-label">House</p>
+                <p className="octo-data-card-value">{houseLabel}</p>
                 <p className="octo-data-card-label">Team Name</p>
                 <p className="octo-data-card-value">{team.name}</p>
                 <p className="octo-data-card-label">Members</p>
                 <p className="octo-data-card-value">
                   {Array.isArray(team.members)
                     ? team.members.map((m, mi) => (
-                        <span className="octo-badge me-1" key={mi}>{m}</span>
+                        <span className="octo-badge me-1" key={mi}>{m.user_name}</span>
                       ))
                     : <span className="octo-badge">{team.members || '—'}</span>
                   }
                 </p>
               </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { RandomImage } from '../App';
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -44,8 +45,9 @@ function Users() {
   );
 
   return (
-    <div className="octo-page">
-      <div className="container">
+    <div className="octo-page" style={{ position: 'relative', overflow: 'hidden' }}>
+      <RandomImage />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="octo-page-header">
           <div className="octo-page-icon">👤</div>
           <div>

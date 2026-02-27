@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { RandomImage } from '../App';
 
 function Leaderboard() {
   const [entries, setEntries] = useState([]);
@@ -46,8 +47,9 @@ function Leaderboard() {
   const medals = ['🥇','🥈','🥉'];
 
   return (
-    <div className="octo-page">
-      <div className="container">
+    <div className="octo-page" style={{ position: 'relative', overflow: 'hidden' }}>
+      <RandomImage />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="octo-page-header">
           <div className="octo-page-icon">🏅</div>
           <div>
@@ -69,7 +71,7 @@ function Leaderboard() {
                   {medals[i] || `#${i + 1}`}
                 </div>
                 <p className="octo-data-card-label">Player</p>
-                <p className="octo-data-card-value">{entry.user}</p>
+                <p className="octo-data-card-value">{entry.user_name}</p>
                 <p className="octo-data-card-label">Score</p>
                 <p className="octo-data-card-value">
                   <span className="octo-badge">{entry.score} pts</span>

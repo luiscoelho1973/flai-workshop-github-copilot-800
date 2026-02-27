@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { RandomImage } from '../App';
 
 function Activities() {
   const [activities, setActivities] = useState([]);
@@ -44,8 +45,9 @@ function Activities() {
   );
 
   return (
-    <div className="octo-page">
-      <div className="container">
+    <div className="octo-page" style={{ position: 'relative', overflow: 'hidden' }}>
+      <RandomImage />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="octo-page-header">
           <div className="octo-page-icon">⚡</div>
           <div>
@@ -64,7 +66,7 @@ function Activities() {
             {activities.map((act, i) => (
               <div className="octo-data-card" key={act._id || i}>
                 <p className="octo-data-card-label">User</p>
-                <p className="octo-data-card-value">{act.user}</p>
+                <p className="octo-data-card-value">{act.user_name}</p>
                 <p className="octo-data-card-label">Activity Type</p>
                 <p className="octo-data-card-value">
                   <span className="octo-badge">{act.activity_type}</span>
